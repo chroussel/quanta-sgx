@@ -1,6 +1,7 @@
 #[cfg(all(target_arch = "x86_64", target_feature = "sse2"))]
 use core::arch::x86_64::_rdtsc;
 
+
 #[derive(Clone, Debug, Default)]
 pub struct Counter;
 
