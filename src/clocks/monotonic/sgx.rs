@@ -12,7 +12,8 @@ impl Monotonic {
             tv_nsec: 0,
         };
         unsafe {
-            sgx_oc::ocall::clock_gettime(sgx_oc::CLOCK_MONOTONIC, &mut ts).unwrap();
+            sgx_oc::ocall::clock_gettime(sgx_oc::CLOCK_MONOTONIC, &mut ts)
+                .expect("OCall issues when fetching clock")
         }
 
         // LINT JUSTIFICATION:
