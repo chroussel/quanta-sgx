@@ -13,9 +13,9 @@ mod wasm;
 #[cfg(target_arch = "wasm32")]
 pub use self::wasm::Monotonic;
 
-#[cfg(target_env = "sgx")]
+#[cfg(any(target_vendor = "teaclave", target_env="sgx"))]
 mod sgx;
-#[cfg(target_env = "sgx")]
+#[cfg(any(target_vendor = "teaclave", target_env="sgx"))]
 pub use self::sgx::Monotonic;
 
 #[cfg(not(any(
@@ -23,7 +23,8 @@ pub use self::sgx::Monotonic;
     target_os = "ios",
     target_os = "windows",
     target_arch = "wasm32",
-    target_env = "sgx"
+    target_env = "sgx",
+    target_vendor= "teaclave"
 )))]
 mod unix;
 #[cfg(not(any(
@@ -31,6 +32,7 @@ mod unix;
     target_os = "ios",
     target_os = "windows",
     target_arch = "wasm32",
-    target_env = "sgx"
+    target_env = "sgx",
+    target_vendor= "teaclave"
 )))]
 pub use self::unix::Monotonic;

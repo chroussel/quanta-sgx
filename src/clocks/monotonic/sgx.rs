@@ -1,5 +1,5 @@
 
-extern crate sgx_libc;
+extern crate sgx_oc;
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct Monotonic;
@@ -7,12 +7,12 @@ pub struct Monotonic;
 impl Monotonic {
     #[allow(clippy::cast_sign_loss)]
     pub fn now(self) -> u64 {
-        let mut ts = sgx_libc::timespec {
+        let mut ts = sgx_oc::timespec {
             tv_sec: 0,
             tv_nsec: 0,
         };
         unsafe {
-            sgx_libc::ocall::clock_gettime(sgx_libc::CLOCK_MONOTONIC, &mut ts);
+            sgx_oc::ocall::clock_gettime(sgx_oc::CLOCK_MONOTONIC, &mut ts).unwrap();
         }
 
         // LINT JUSTIFICATION:
